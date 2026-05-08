@@ -7,8 +7,8 @@ app.secret_key = 'your_secret_key'
 
 @app.route('/')
 def index() :
-   flowers = load_data()
-   return render_template('index.html', flowers=flowers)
+   flowers, addons = load_data()
+   return render_template('index.html', flowers=flowers , addons=addons)
 
 @app.route('/about')
 def about() :
@@ -27,7 +27,7 @@ def load_data():
       flowers = json.load(file)  
 
    with open('data/addons.json') as file:
-        addons = json.load(file)
+      addons = json.load(file)
 
    return flowers, addons
     
