@@ -11,8 +11,8 @@
 <h2>Add-ons Available</h2>
 
 <ul>
-  {% for addon in addons %}
-    <li>{{ addon.name }} - ${{ addon.price }}</li>
+   {% for name, details in addons.items() %}
+    <li>{{ name }} - ${{ details.price }}</li>
   {% endfor %}
 </ul>
 </body>
