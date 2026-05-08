@@ -8,9 +8,12 @@
 
 <body> 
 <h1> testing successful</h1>
+<h2>Add-ons Available</h2>
+
+<ul>
+  {% for addon in addons %}
+    <li>{{ addon.name }} - ${{ addon.price }}</li>
+  {% endfor %}
+</ul>
 </body>
 </html>
-{% if cart %}
-    <ul>
-        {% for items,details in cart.items() %}
-    </ul>
