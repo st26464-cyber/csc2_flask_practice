@@ -8,7 +8,7 @@ app.secret_key = 'your_secret_key'
 @app.route('/')
 def index() :
    flowers, addons = load_data()
-   return render_template('index.html', flowers=flowers , addons=addons)
+   return render_template('index1.html', flowers=flowers , addons=addons)
 
 @app.route('/about')
 def about() :
@@ -30,7 +30,35 @@ def load_data():
       addons = json.load(file)
 
    return flowers, addons
-    
+
+flowers = {
+    "Rose": {"price": 10, "stock": 50},
+    "Tulip": {"price": 10, "stock": 40},
+    "Lily": {"price": 10, "stock": 30},
+    "Daisy": {"price": 10, "stock": 100},
+}
+addons = {
+    "Ribbon": {"price": 2},
+    "Specialty Wrapping Paper": {"price": 5},
+    "Personalised Note": {"price": 3},
+    "Delivery": {"price": 10}
+}
+
+@app.route('/page1')
+def page1():
+    return render_template('index1.html')
+
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    flower = request.form.get("flower")
+    quantity = request.form.get("quantity")
+
+    print("Flower selected:", flower)
+    print("Quantity:", quantity)
+
+    return redirect(url_for('index'))
+  
+
 if __name__=='__main__':
     app.run(debug=True)
 
