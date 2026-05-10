@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flower Shop</title>
+</head>
+
+<body>
+
+    <h1>Displaying JSON Flower Data</h1>
+
+    <ul>
+        {% for flower, details in flowers.items() %}
+            <li>
+                {{ flower }} - ${{ details.price }}
+                (Stock: {{ details.stock }})
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add-ons Available</h2>
+
+    <ul>
+        {% for addon, details in addons.items() %}
+            <li>
+                {{ addon }} - (${{ details.price }})
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Select Flowers</h2>
+
+    <form method="POST">
+
+        <label>Flower:</label>
+
+        <select name="flower">
+
+            {% for flower, details in flowers.items() %}
+                <option value="{{ flower }}">
+                    {{ flower }} - ${{ details.price }}
+                </option>
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Add-on:</label>
+
+        <select name="addon">
+
+            {% for addon, details in addons.items() %}
+                <option value="{{ addon }}">
+                    {{ addon }} - ${{ details.price }}
+                </option>
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Quantity</label>
+
+        <input type="number" name="quantity" value="1" min="1">
+
+        <br><br>
+
+        <button type="submit">Add to Cart</button>
+
+    </form>
+
+    <hr>
+
+    
+</body>
+</html>
