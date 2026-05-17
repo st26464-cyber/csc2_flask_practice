@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Flower Shop</title>
 </head>
@@ -22,14 +23,38 @@
     <ul>
         {% for addon, details in addons.items() %}
             <li>
-                {{ addon }} - (${{ details.price }})
+                {{ addon }} - ${{ details.price }}
             </li>
         {% endfor %}
     </ul>
 
     <h2>Select Flowers</h2>
 
-    <form method="POST">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div style="
+                background-color: #d4edda;
+                color: #155724;
+                padding: 10px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                border: 1px solid #c3e6cb;
+                border-radius: 5px;
+                width: fit-content;
+            ">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+{% endwith %}
+
+    <!-- Add to Cart Form -->
+    <form action="{{ url_for('add_to_cart') }}" method="POST">
 
         <label>Flower:</label>
 
@@ -55,7 +80,7 @@
 
         </select>
 
-        <label>Quantity</label>
+        <label>Quantity:</label>
 
         <input type="number" name="quantity" value="1" min="1">
 
@@ -65,5 +90,29 @@
 
     <hr>
 
+    <!-- Cart Section -->
+    <h2>Your Cart</h2>
+
+    {% if session.cart %}
+
+        <ul>
+
+        {% for item, details in session.cart.items() %}
+            <li>
+                {{ item }}: {{ '%.2f' % details['quantity'] }} x ${{ details['price'] }} = ${{ details['quantity'] * details['price'] }}
+                
+                <a href="{{ url_for('remove_from_cart', item=item) }}">[Remove]</a>
+            </li>
+        {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <p>Your cart is empty.</p>
+
+    {% endif %}
+
 </body>
+
 </html>
