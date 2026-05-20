@@ -55,6 +55,7 @@ flowers = {
     "Tulip": {"price": 10, "stock": 40},
     "Lily": {"price": 10, "stock": 30},
     "Daisy": {"price": 10, "stock": 100},
+    "Orchid": {"price": 20, "stock": 25}
 }
 addons = {
     "Ribbon": {"price": 2},
