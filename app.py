@@ -4,12 +4,31 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 
 app = Flask (__name__)
 app.secret_key = 'your_secret_key'
+def load_data():
+    with open('data/flowers.json') as file:
+        flowers = json.load(file)
+    with open('data/addons.json') as file:
+        addons = json.load(file)
+    return flowers, addons
 
+def calculate_total(cart):
+    total = sum(item['price'] * item['quantity'] for item in cart.values())
+    return total
+    
 @app.route('/')
-def index() :
-   flowers, addons = load_data()
-   return render_template('index1.html', flowers=flowers , addons=addons)
+def index():
+    cart = session.get('cart', {})
+    flowers, addons = load_data()
 
+    total = calculate_total(cart)
+
+    return render_template(
+        'index1.html',
+        flowers=flowers,
+        addons=addons,
+        cart=cart,
+        total=total
+    )
 @app.route('/about')
 def about() :
    return render_template('about.html')
@@ -95,6 +114,5 @@ def remove_from_cart(item):
         flash("Item not found in cart")
 
     return redirect(url_for('index'))
-
 if __name__=='__main__':
     app.run(debug=True)
