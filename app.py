@@ -16,7 +16,7 @@ def calculate_total(cart):
     return total
     
 @app.route('/')
-def index():
+def index1():
     cart = session.get('cart', {})
     flowers, addons = load_data()
 
@@ -40,29 +40,6 @@ def checkout() :
 @app.route('/order')
 def order_history() :
    return render_template('order_history.html')
-
-def load_data():
-   with open('data/flowers.json') as file:
-      flowers = json.load(file)  
-
-   with open('data/addons.json') as file:
-      addons = json.load(file)
-
-   return flowers, addons
-
-flowers = {
-    "Rose": {"price": 10, "stock": 50},
-    "Tulip": {"price": 10, "stock": 40},
-    "Lily": {"price": 10, "stock": 30},
-    "Daisy": {"price": 10, "stock": 100},
-    "Orchid": {"price": 20, "stock": 25}
-}
-addons = {
-    "Ribbon": {"price": 2},
-    "Specialty Wrapping Paper": {"price": 5},
-    "Personalised Note": {"price": 3},
-    "Delivery": {"price": 10}
-}
 
 @app.route('/page1')
 def page1():
