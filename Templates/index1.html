@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Flower Shop</title>
-</head>
+{% block title %}
+Flower Shop
+{% endblock %}
 
-<body>
-
+{% block content %}
+    
     <h1>Displaying JSON Flower Data</h1>
 
     <ul>
@@ -114,6 +113,4 @@
 
     {% endif %}
 
-</body>
-
-</html>
+{% endblock %}
