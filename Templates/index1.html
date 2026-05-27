@@ -18,14 +18,22 @@ Flower Shop
     </ul>
 
     <h2>Add-ons Available</h2>
+    <form action="{{ url_for('select_addon') }}" method="POST">
+    <fieldset>
+        <legend>Add-ons</legend>
 
-    <ul>
-        {% for addon, details in addons.items() %}
-            <li>
-                {{ addon }} - ${{ details.price }}
-            </li>
+        {% for addon, data in addons.items() %}
+            <label>
+                <input type="checkbox" name="addons" value="{{ addon }}">
+                {{ addon }} (${{ data.price }})
+            </label>
+            <br>
         {% endfor %}
-    </ul>
+
+        <br>
+        <button type="submit">Add to Cart</button>
+    </fieldset>
+</form>
 
     <h2>Select Flowers</h2>
 
@@ -105,6 +113,19 @@ Flower Shop
         {% endfor %}
 
         </ul>
+
+     <h2>Selected Add-ons</h2>
+
+{% if selected_addons %}
+<ul>
+    {% for addon, price in selected_addons.items() %}
+        <li>{{ addon }} - ${{ price }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No add-ons selected.</p>
+{% endif %}
+
     <h4>Total: ${{ '%.2f' % total }}</h4>
 
     {% else %}
