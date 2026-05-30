@@ -127,6 +127,24 @@ Flower Shop
 {% endif %}
 
     <h4>Total: ${{ '%.2f' % total }}</h4>
+    <form action="{{ url_for('checkout') }}" method="GET">
+
+        <button type="submit">
+            Proceed to Checkout
+        </button>
+     <button type="submit"
+            formaction="{{ url_for('cancel_order') }}"
+            style="
+        background-color: red;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    ">
+        Cancel Order
+    </button>
 
     {% else %}
 
