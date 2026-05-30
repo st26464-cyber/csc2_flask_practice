@@ -11,23 +11,32 @@ def load_data():
         addons = json.load(file)
     return flowers, addons
 
-def calculate_total(cart):
-    total = sum(item['price'] * item['quantity'] for item in cart.values())
-    return total
+def calculate_total(cart, selected_addons):
+    flower_total = sum(
+        item['price'] * item['quantity']
+        for item in cart.values()
+    )
+
+    addon_total = sum(selected_addons.values())
+
+    return flower_total + addon_total
     
 @app.route('/')
 def index1():
     cart = session.get('cart', {})
+    selected_addons = session.get('selected_addons', {})
+
     flowers, addons = load_data()
 
-    total = calculate_total(cart)
+    total = calculate_total(cart, selected_addons)
 
     return render_template(
         'index1.html',
         flowers=flowers,
         addons=addons,
         cart=cart,
-        total=total
+        total=total,
+        selected_addons=selected_addons
     )
 @app.route('/about')
 def about() :
@@ -59,7 +68,7 @@ def add_to_cart():
 
         flash("Invalid flower selected.")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('index1'))
 
     if flower in cart:
 
@@ -77,7 +86,7 @@ def add_to_cart():
 
     flash(f"{quantity} {flower}(s) added to cart.")
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index1'))
 
 @app.route('/remove_from_cart/<item>')
 def remove_from_cart(item):
@@ -87,10 +96,41 @@ def remove_from_cart(item):
         del cart[item]
         session['cart'] = cart
         session.modified = True
-        flash(f"{item} removed from cart.")
+        flash(f"Removed all {item} from the cart.")
     else:
         flash("Item not found in cart")
 
-    return redirect(url_for('index'))
+
+    return redirect(url_for('index1'))
+
+@app.route('/select_addon', methods=['POST'])
+def select_addon():
+
+    selected_addons = {}
+
+    _, addons = load_data()
+
+    selected_keys = request.form.getlist('addons')
+
+    for addon in selected_keys:
+        if addon in addons:
+            selected_addons[addon] = float(addons[addon]['price'])
+
+    session['selected_addons'] = selected_addons
+    session.modified = True
+
+    flash("Add-ons selected successfully!")
+
+    return redirect(url_for('index1'))
+
+@app.route('/cancel_order')
+def cancel_order():
+    session.pop('cart', None)
+    session.pop('selected_addons', None)
+
+    flash("Order cancelled successfully. Cart has been cleared.")
+
+    return redirect(url_for('index1'))
+
 if __name__=='__main__':
     app.run(debug=True)
