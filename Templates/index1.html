@@ -5,7 +5,7 @@ Flower Shop
 {% endblock %}
 
 {% block content %}
-    
+    <!-- Display all flowers loaded from flowers.json -->
     <h1>Displaying JSON Flower Data</h1>
 
     <ul>
@@ -16,7 +16,7 @@ Flower Shop
             </li>
         {% endfor %}
     </ul>
-
+<!-- Add-ons selection form -->
     <h2>Add-ons Available</h2>
     <form action="{{ url_for('select_addon') }}" method="POST">
     <fieldset>
@@ -34,9 +34,10 @@ Flower Shop
         <button type="submit">Add to Cart</button>
     </fieldset>
 </form>
-
+<!-- Flower selection form -->
     <h2>Select Flowers</h2>
 
+    <!-- Display flash messages to provide user feedback -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
 
@@ -60,7 +61,7 @@ Flower Shop
     {% endif %}
 {% endwith %}
 
-    <!-- Add to Cart Form -->
+    <!-- Form for adding flowers to the cart -->
     <form action="{{ url_for('add_to_cart') }}" method="POST">
 
         <label>Flower:</label>
@@ -85,7 +86,7 @@ Flower Shop
 
     <hr>
 
-    <!-- Cart Section -->
+    <!-- Shopping cart section -->
     <h2>Your Cart</h2>
 
     {% if session.cart %}
@@ -101,7 +102,7 @@ Flower Shop
         {% endfor %}
 
         </ul>
-
+<!-- Display selected add-ons -->
      <h2>Selected Add-ons</h2>
 
 {% if selected_addons %}
@@ -121,7 +122,7 @@ Flower Shop
     <input type="text" name="customer_name" required>
 
     <br><br>
-
+ <!-- Generate invoice and proceed to checkout -->
     <button type="submit">
         Proceed to Checkout
     </button>
@@ -133,7 +134,7 @@ Flower Shop
 
 </form>
     {% else %}
-
+     <!-- Message shown when cart is empty -->
         <p>Your cart is empty.</p>
 
     {% endif %}
