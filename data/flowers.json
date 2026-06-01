@@ -4,5 +4,5 @@
     "Lily": {"price": 10, "stock" : 30 },
     "Daisy": {"price": 10, "stock" : 100 },
     "Orchid": {"price": 20, "stock": 25},
-    "sunflower": {"price": 9, "stock": 15}
+    "Sunflower": {"price": 9, "stock": 15}
 }
