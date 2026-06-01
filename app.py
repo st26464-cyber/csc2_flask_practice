@@ -1,5 +1,5 @@
 import json 
-
+import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, flash 
 
 app = Flask (__name__)
@@ -41,10 +41,36 @@ def index1():
 @app.route('/about')
 def about() :
    return render_template('about.html')
+@app.route('/checkout', methods=['POST'])
+def checkout():
 
-@app.route('/checkout')
-def checkout() :
-   return render_template('invoice.html')
+    customer_name = request.form['customer_name'].strip().title()
+
+    if not customer_name:
+        flash("Customer name is required.")
+        return redirect(url_for('index1'))
+
+    cart = session.get('cart', {})
+    selected_addons = session.get('selected_addons', {})
+
+    if not cart:
+        flash("Your cart is empty.")
+        return redirect(url_for('index1'))
+
+    total = calculate_total(cart, selected_addons)
+
+    invoice_date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    invoice_number = f"INV_{customer_name.replace(' ', '_')}"
+
+    return render_template(
+        'invoice.html',
+        customer_name=customer_name,
+        cart=cart,
+        selected_addons=selected_addons,
+        total=total,
+        invoice_number=invoice_number,
+        invoice_date=invoice_date
+    )
 
 @app.route('/order')
 def order_history() :
@@ -123,7 +149,7 @@ def select_addon():
 
     return redirect(url_for('index1'))
 
-@app.route('/cancel_order')
+@app.route('/cancel_order', methods=['POST'])
 def cancel_order():
     session.pop('cart', None)
     session.pop('selected_addons', None)
