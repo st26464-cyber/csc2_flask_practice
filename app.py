@@ -41,9 +41,14 @@ def index1():
 @app.route('/about')
 def about() :
    return render_template('about.html')
-@app.route('/checkout', methods=['POST'])
-def checkout():
 
+@app.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    # 1. If a user tries to visit the page directly via URL link, redirect them back to the shop
+    if request.method == 'GET':
+        flash("Please add items to your cart and use the checkout form.")
+        return redirect(url_for('index1'))
+    
     customer_name = request.form['customer_name'].strip().title()
 
     if not customer_name:
