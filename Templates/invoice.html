@@ -4,6 +4,32 @@ Invoice
 {% endblock %}
 
 {% block content %}
-<h2>Invoice</h2>
-<p>This page will show the customer invoice after checkout.</p>
+<h1>Invoice</h1>
+<p>Invoice Number: {{ invoice_number }}</p>
+<p>Customer Name: {{ customer_name }}</p>
+<p>Date: {{ invoice_date }}</p>
+
+<h2>Items</h2>
+<ul>
+{% for flower, item in cart.items() %}
+    <li>
+        {{ flower }}:
+        {{ item.quantity }} x ${{ item.price }}
+        = ${{ item.quantity * item.price }}
+    </li>
+{% endfor %}
+</ul>
+
+{% if selected_addons %}
+<h2>Add-Ons</h2>
+<ul>
+{% for addon, price in selected_addons.items() %}
+    <li>{{ addon }}: ${{ price }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+<h3>Total: ${{ total }}</h3>
+
+<a href="{{ url_for('index1') }}">Back to Shop</a>
 {% endblock %}
