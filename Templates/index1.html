@@ -124,13 +124,14 @@ Flower Shop
     <br><br>
  <!-- Generate invoice and proceed to checkout -->
     <button type="submit">
-        Proceed to Checkout
-    </button>
+    Proceed to Checkout
+</button>
 
-    <button type="submit"
-            formaction="{{ url_for('cancel_order') }}">
-        Cancel Order
-    </button>
+<button type="submit"
+        formaction="{{ url_for('cancel_order') }}"
+        formnovalidate>
+    Cancel Order
+</button>
 
 </form>
     {% else %}
