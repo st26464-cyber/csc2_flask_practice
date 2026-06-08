@@ -7,36 +7,7 @@ Flower Shop
 {% block content %}
     <!-- Display all flowers loaded from flowers.json -->
     <h1>Displaying JSON Flower Data</h1>
-
-    <ul>
-        {% for flower, details in flowers.items() %}
-            <li>
-                {{ flower }} - ${{ details.price }}
-                (Stock: {{ details.stock }})
-            </li>
-        {% endfor %}
-    </ul>
-<!-- Add-ons selection form -->
-    <h2>Add-ons Available</h2>
-    <form action="{{ url_for('select_addon') }}" method="POST">
-    <fieldset>
-        <legend>Add-ons</legend>
-
-        {% for addon, data in addons.items() %}
-            <label>
-                <input type="checkbox" name="addons" value="{{ addon }}">
-                {{ addon }} (${{ data.price }})
-            </label>
-            <br>
-        {% endfor %}
-
-        <br>
-        <button type="submit">Add to Cart</button>
-    </fieldset>
-</form>
-<!-- Flower selection form -->
-    <h2>Select Flowers</h2>
-
+    
     <!-- Display flash messages to provide user feedback -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -58,32 +29,51 @@ Flower Shop
 
         {% endfor %}
 
-    {% endif %}
-{% endwith %}
-
-    <!-- Form for adding flowers to the cart -->
+        {% endif %}
+    {% endwith %}
     <form action="{{ url_for('add_to_cart') }}" method="POST">
+        <!-- Flower Selection (Radio Buttons) -->
+        {% for flower, details in flowers.items() %}
+            <div class="radio-option">
+                <input 
+                    type="radio" 
+                    id="flower-{{ loop.index }}" 
+                    name="flower" 
+                    value="{{ flower }}"
+                    {% if loop.first %}checked{% endif %}
+                >
+                <label for="flower-{{ loop.index }}">
+                    {{ flower }} - ${{ details.price }} (Stock: {{ details.stock }})
+                </label>
+            </div>
+        {% endfor %}
 
-        <label>Flower:</label>
+        <!-- Quantity & Submit -->
+        <div class="form-actions">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1">
 
-        <select name="flower">
-
-            {% for flower, details in flowers.items() %}
-                <option value="{{ flower }}">
-                    {{ flower }} - ${{ details.price }}
-                </option>
-            {% endfor %}
-
-        </select>
-
-        <label>Quantity:</label>
-
-        <input type="number" name="quantity" value="1" min="1">
-
-        <button type="submit">Add to Cart</button>
-
+            <button type="submit">Add to Cart</button>
+        </div>
     </form>
+<!-- Add-ons selection form -->
+    <h2>Add-ons Available</h2>
+    <form action="{{ url_for('select_addon') }}" method="POST">
+    <fieldset>
+        <legend>Add-ons</legend>
 
+        {% for addon, data in addons.items() %}
+            <label>
+                <input type="checkbox" name="addons" value="{{ addon }}">
+                {{ addon }} (${{ data.price }})
+            </label>
+            <br>
+        {% endfor %}
+
+        <br>
+        <button type="submit">Add to Cart</button>
+    </fieldset>
+</form>
     <hr>
 
     <!-- Shopping cart section -->
