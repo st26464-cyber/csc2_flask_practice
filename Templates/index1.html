@@ -84,7 +84,7 @@ Flower Shop
         <ul>
 
         {% for item, details in session.cart.items() %}
-            <li>
+            <li class="cart-item">
                 {{ item }}: {{ '%.2f' % details['quantity'] }} x ${{ details['price'] }} = ${{ details['quantity'] * details['price'] }}
                 
                 <a href="{{ url_for('remove_from_cart', item=item) }}">[Remove]</a>
