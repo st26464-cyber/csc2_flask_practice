@@ -28,7 +28,9 @@ Invoice
 {% endfor %}
 </ul>
 {% endif %}
-
+{% if discount_applied %}
+            <p style="color: green; margin-bottom: 5px;"><em>10% Discount applied!</em></p>
+        {% endif %}
 <h3>Total: ${{ total }}</h3>
 
 <a href="{{ url_for('index1') }}">Back to Shop</a>
