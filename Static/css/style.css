@@ -1,90 +1,250 @@
 @media (max-width: 600px) {
 }
+/* Styles the entire webpage */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-}
+    font-size: medium;
+    background:linear-gradient(to bottom, #FFF0F5, #FFE4E1);
 
+}
+/* Styles the page header */
 header {
-    background-color:red;
-    color: white;
+    background-color:pink;
+    color:black;
     text-align: center;
     padding: 20px;
 }
-
+/* Styles the navigation area */
 nav {
     margin-top: 10px;
 }
-
+/* Styles navigation links */
 nav a {
-    color: white;
+    color:black;
     text-decoration: none;
     padding: 10px 15px;
     margin: 5px;
-    background-color:red;
+    background-color:pink;
     border-radius: 5px;
+    transition: 0.3s;
 }
-
+/* Navigation link hover effect */
 nav a:hover {
-    background-color:black;
+    background-color: #3a2226;
+    color: white;
+    transform: scale(1.05);
 }
-
+/* Main content container */
 main {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    
 }
-
-h1, h2 {
-    color:black;
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background:white;
+    padding: 15px 18px;
+    margin: 10px 0;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
-
-ul {
-    list-style-type: none;
-    padding: 0;
+.radio-option:hover {
+    border-color:pink;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    background-color: #f6fff6;
 }
-
-li {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+.radio-option input[type="radio"] {
+    transform: scale(1.3);
     cursor: pointer;
 }
-
+/* Main headings */
+h1, h2 {
+    color:black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/* Creates a responsive grid layout for lists */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 15px;
+    margin: 20px 0;
+}
+/* Styles each list item card */
+li {
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #FFE4E1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column; /* Stacks information beautifully down */
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #4a3b3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Hover effect for list items */
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4); /* soft pink ambient glow */
+    border-color: #FFB6C1;
+}
+/* Styles all buttons */
+ button {
+    background-color: #16A34A;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px; /* Fully rounded */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease; 
+    box-shadow: 0 4px 6px rgba(22, 163, 74, 0.2);
+}
+/* Styles forms used for adding items to cart */
+form[action*="add_to_cart"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px; 
+    margin: 20px 0;
+}
+/* Button hover effect */
 button:hover {
-    background-color: #218838;
+    background-color: #15803d;
+    transform: translateY(-2px); /* Button lifts slightly up on hover */
+    box-shadow: 0 6px 12px rgba(22, 163, 74, 0.3);
 }
-
-input[type="number"] {
-    width: 60px;
+/* Styles select menus and input fields */
+select, input[type="number"], input[type="text"] {
+    font-family: inherit;
     padding: 5px;
+    border: 2px solid #FFE4E1;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3a2226;
+    background-color: white;
+    outline: none;
+    transition: all 0.2s ease;
 }
-
+/* Styles labels inside fieldsets */
+fieldset label {
+    display: block;          
+    padding: 1px;      
+    font-size: 20px;         
+    font-weight: 500;
+    color: #3a2226;          
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+/* Label hover effect */
+fieldset label:hover {
+    background-color: #FFF0F5; 
+}
+/* Flash message styling */
 .flash-message {
     background-color: #d4edda;
-    color: #155724;
+    color:greenyellow;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #c3e6cb;
     border-radius: 5px;
 }
+td ul.order-list {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none; /* Disables the 250px grid stretching */
+    gap: 5px;
+    padding: 0;
+    margin: 5px 0;
+    list-style: none;
+}
 
-footer {
+/* 2. Style and shrink the individual item/addon boxes */
+td ul.order-list li {
+    display: inline-block;
+    width: max-content; /* Wraps tightly around text */
+    min-width: unset;
+    padding: 6px 14px;  /* Controls the inside box size */
+    margin: 2px 0;
+    font-size: 13px;    /* Makes text fit nicely in table */
+    align-items: center;
     text-align: center;
+    
+    /* Keeps your hover animation effects intact */
+    transform: none; 
+}
+
+/* 3. Force the footer to stay completely clear of the table container */
+footer {
+    clear: both;
+    display: block;
+    position: relative;
+    width: 100%;
+     text-align: center;
     padding: 15px;
-    background-color: #343a40;
+    background-color:black;
     color: white;
     margin-top: 20px;
 }
+table.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    background-color: white;
+}
+
+/* Style table headings */
+table.history-table th {
+    background-color: #FFE4E1;
+    color: #3a2226;
+    padding: 12px;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 2px solid #FFB6C1;
+}
+table.history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #FFE4E1;
+    vertical-align: middle;
+    color: #4a3b3d;
+}
+button.cancel-btn {
+    background-color: #DC2626; /* Crimson red accent */
+    color: white;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    box-shadow: none;
+}
+
+button.cancel-btn:hover {
+    background-color: #991B1B; /* Deep dark crimson red on hover */
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
